@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  web:
+  scraper:
     build: .
-    ports:
-      - "8081:8081"
     volumes:
-      - .:/app
+      - ./app:/app
     environment:
-      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true

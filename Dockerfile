@@ -5,7 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy requirements.txt
-COPY requirements.txt .
+COPY app/requirements.txt .
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
@@ -34,15 +34,8 @@ RUN pip install chromedriver-autoinstaller
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Make port 8081 available to the world outside this container
-EXPOSE 8081
-
-# Define environment variable
-ENV FLASK_APP=app
-ENV FLASK_RUN_HOST=0.0.0.0
-
 # Copy the rest of the application code into the container
-COPY . .
+COPY app /app
 
-# Run flask when the container launches
-CMD ["flask", "run", "--port=8081"]
+# Run your Python script when the container launches
+CMD ["python", "/app/app.py"]
